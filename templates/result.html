@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<!-- tag is a crucial element that appears at the beginning of an HTML document--->
+<head>
+    <title>Personality Test Result</title><!---title bar---->
+
+
+<!-- This line imports the Bootstrap CSS file from a Content Delivery Network (CDN) -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- This line imports a custom CSS file using a server-side function or template engine -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+
+
+</head>
+
+
+
+<!--- tag defines the document's body ---->
+<body>
+
+
+    <div class="container-fluid p-5 bg-black" >
+        <!-- Containers are a fundamental building block of Bootstrap that contain, pad, and align your content within a given device or viewport.-->
+
+        <div class="container rounded p-10"  >
+            <!-- Containers are a fundamental building block of Bootstrap that contain, pad, and align your content within a given device or viewport.-->
+
+
+            <br> <!--- for new line---->
+
+            <img src="{{ url_for('static', filename=background_image) }}" class="img-fluid" alt="Background Image">
+            <!---- image calling from app.py -->
+
+                <div class="row" ><!---display by row---->
+                     <div class="col mr-4 ml-4 mb-4 mt-4" style="background-color: #c4a283; border-radius: 5px;">
+                         <!---display by column with bootstraps attribute---->
+                       <ul> <!--use unorderedlist-->
+                           <br><!--- for new line---->
+
+
+                         <div class="result"><!--- calling class result from css---->
+                            <h2>{{ chosenletters }}: {{ title }}</h2>    <div class="result"><!--- calling variable chosenletters from app.py---->
+                            <p>{{ description }}</p> <!--- calling variable description letters from app.py---->
+                        <!-- {{ personality_type_result | safe }} -->
+                        </div> <!--- end of div ---->
+                       </ul> <!-- end of unorderedlist--->
+
+                    </div> <!--- end of div ---->
+                  </div> <!--- end of div ---->
+
+
+            <div class="row " > <!----display by row----->
+                 <div class="col mr-4 ml-4 " style="background-color:#c4a283; border-radius:5px;">
+                 <!---display by column with bootstraps attribute---->
+                    <ul><!--use unorderedlist-->
+                        <br><!-- new line--->
+                        <h4>Strengths:</h4>
+                        <!-- I-display ang mga strengths bilang isang list -->
+                        {% for strength in strength_list %}
+                            <li>{{ strength.split('.')[0] }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col mr-4 ml-4" style="background-color:#c4a283; border-radius:5px;">
+
+                    <ul>
+                        <br>
+                         <h4>Weaknesses:</h4>
+                        <!-- I-display ang mga weaknesses bilang isang list -->
+                        {% for weakness in weakness_list %}
+                            <li>{{ weakness.split('.')[0] }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div>
+                <div class="row">
+                    <div class="col mr-4 ml-4 mt-4" style="background-color:#c4a283; border-radius:5px;">
+
+                        <ul>
+                            <br>
+                                  <h4 >Best Career Path for {{ chosenletters }}:</h4>
+                            {% for career in careers.split(', ') %}
+                                <li>{{ career }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div>
+
+<div class="row">
+    <div class="col mr-4 ml-4 mt-4 mb-4" style="background-color:#c4a283; border-radius:5px;">
+        <div class="d-flex justify-content-between align-items-center mb-4" >
+            <h1 class="mr-4 mb-5" >Most Compatible with:</h1>
+
+            <div class="row ml-5" >
+                <div class="col-12 d-flex justify-content-end">
+                    {% for compatible_type in compatible_list %}
+                        <div class="d-flex flex-column align-items-center">
+                            <img src="static/img/character/{{ compatible_type.split('.')[0] }}.png" alt="{{ compatible_type.split('.')[0] }}" class="img-fluid">
+                            <p class="text-center mt-2">{{ compatible_type }}</p>
+                        </div>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <form action="{{ url_for('landing') }}" method="get"> <!---- when click button, the form getting landing----->
+        <input type="image" src="/static/img/BACK TO MENU BUTTON.png" alt="Back to Landing Page" style="width:350px;">
+    </form>
+
+
+
+
+                     </div>
+               </div>
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+</body> <!--- end of the body ----->
+</html>
